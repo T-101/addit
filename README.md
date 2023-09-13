@@ -18,7 +18,8 @@ like the ones from IRC
 4. `docker compose run --rm app python3 manage.py migrate` to initialize the db
 5. `docker compose run --rm app python3 manage.py createsuperuser` to create the superuser
 6. `docker compose run --rm app python3 manage.py collectstatic --no-input` to get static files in the correct places
-7. `docker compose up -d` to deploy to localhost
+7. uncomment preferred command from `docker-compose.yml`
+8. `docker compose up -d` to deploy to localhost
 
 ### Tests
 Includes some django testing
