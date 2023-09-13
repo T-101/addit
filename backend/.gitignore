@@ -1,0 +1,7 @@
+.env
+*.pyc
+*.json
+db.sqlite3*
+static/*
+
+.idea

@@ -1,0 +1,30 @@
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('/static/fonts/SourceSans3-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Source Code Pro';
+    src: url('/static/fonts/SourceCodePro-Regular.ttf') format('truetype');
+}
+
+body {
+    font-family: 'Source Sans Pro', sans-serif !important;
+}
+
+.doSearch:hover {
+    cursor: pointer;
+}
+
+.quote-monospace {
+    font-family: 'Source Code Pro', sans-serif !important;
+}
+
+.list-group-item {
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+}
+
+.list-group {
+    --bs-list-group-action-hover-bg: var(--bs-purple);
+}

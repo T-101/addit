@@ -1,0 +1,130 @@
+{% extends 'addit/base.html' %}{% load www_extras %}
+
+{% block content %}
+
+    {% include 'snippets/navbar.html' %}
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-sm-4">
+                    <div role="toolbar" class="btn-toolbar">
+                        <form method="post">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-primary btn-block btn-lg">
+                                <i class="fa-solid fa-shuffle me-2"></i>
+                                Random
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col mt-2 mt-sm-0">
+                    <div class="input-group">
+                        <input id="search" type="text" class="form-control form-control-lg"
+                               value="{{ request.GET.search }}" placeholder="Search..."
+                               aria-label="Text input with segmented dropdown button">
+                        <button data-filter="topic" type="button" class="btn btn-outline-primary doSearch">
+                            <i class="fa-solid fa-magnifying-glass me-2"></i>
+                            Search by topic
+                        </button>
+                        <button type="button"
+                                class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="visually-hidden">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item doSearch" data-filter="topic">Search by topic</a></li>
+                            <li><a class="dropdown-item doSearch" data-filter="handle">Search by author</a></li>
+                            <li><a class="dropdown-item doSearch" data-filter="content">Search by content</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        const mainContainer = document.querySelector("#mainContainer")
+
+        handleResize = (width) => {
+            if (width <= 576)
+                mainContainer.classList.remove("container")
+            else
+                mainContainer.classList.add("container")
+
+        }
+
+        window.addEventListener('resize', (e) => handleResize(e.target.innerWidth))
+        handleResize(window.innerWidth)
+
+        const search = document.querySelector("#search")
+
+        search.addEventListener("keyup", (e) => {
+            console.log(e)
+            if (e.key === "Enter") {
+                window.location.href = `/?search=${search.value}&filter=topic`
+            }
+        })
+
+        document.querySelectorAll(".doSearch").forEach((e) => {
+            e.addEventListener("click", () => {
+                if (search.value) window.location.href = `/?search=${search.value}&filter=${e.dataset.filter}`
+            })
+        })
+
+    </script>
+
+    {% if object_list %}
+        <div class="card mb-4">
+            <h3 class="card-header">{{ object_list.count }} Search results</h3>
+            <div class="card-body">
+                <div class="card-text">
+                    <div class="list-group">
+                        {% for object in object_list %}
+                            <a class="list-group-item list-group-item-action"
+                               href="{% url 'addit:quote-detail' object.slug %}">{{ object.topic }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                    <!-- <table class="table">
+                        {% for object in object_list %}
+                            <tr>
+                                <td>
+                                    <a class="list-group-item list-group-item-action"
+                                       href="{% url 'addit:quote-detail' object.slug %}">{{ object.topic }}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table> -->
+                </div>
+            </div>
+
+        </div>
+    {% endif %}
+
+    {% if not object_list and request.GET.search %}
+        <div class="card mb-4">
+            <h3 class="card-header">0 Search results</h3>
+        </div>
+    {% endif %}
+
+    {% if object %}
+        <div class="card mb-4">
+            <h3 class="card-header">{{ object.topic }}</h3>
+            <div class="card-body">
+                <div class="card-text">
+                    <div class="quote-monospace">
+                        {{ object.content|parse_quote|safe|linebreaks }}
+                    </div>
+                </div>
+                <p>- {{ object.handle }}
+                    <small class="ms-2">({{ object.time_added }})</small>
+                </p>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

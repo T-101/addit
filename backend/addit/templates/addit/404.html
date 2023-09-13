@@ -1,0 +1,19 @@
+{% extends 'addit/base.html' %}{% load static %}
+
+{% block content %}
+    <div class="text-center">
+        {% if request.user.is_authenticated %}
+            {% include 'snippets/navbar.html' %}
+        {% endif %}
+
+        <div class="row align-items-center">
+            <div class="col">
+                <h4>Nothing here</h4>
+            </div>
+            <div class="col">
+                <img src="{% static 'images/logo192_transparent.png' %}" alt="addit logo"/>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

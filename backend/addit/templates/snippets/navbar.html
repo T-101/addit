@@ -1,0 +1,38 @@
+<nav class="navbar bg-primary mb-4 py-1" data-bs-theme="dark">{% load static %}
+    <div class="container-fluid">
+
+        <a class="navbar-brand quote-monospace" href="{% url 'addit:landing-page' %}">
+            <img src="{% static 'images/logo128_transparent.png' %}" class="me-1"
+                 alt="addit-logo" style="height: 1.5em;"/>
+            &lt;Addit&gt;
+        </a>
+
+        <ul class="nav">
+            <li class="nav-item">
+                <a href="{% url 'addit:logout' %}" class="nav-link" role="button">
+                    <i class="fa-solid fa-circle-user me-2"></i>
+                    Logout
+                </a>
+            </li>
+            <li class="vr text-white"></li>
+            <li id="revertTheme" class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                   aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-sun"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <button class="dropdown-item active" data-bs-theme-value="light">
+                        <i class="fas fa-sun"></i> Light
+                    </button>
+                    <button class="dropdown-item" data-bs-theme-value="dark">
+                        <i class="fas fa-moon"></i> Dark
+                    </button>
+                    <button class="dropdown-item" data-bs-theme-value="auto">
+                        <i class="fas fa-magic"></i> Automatic
+                    </button>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</nav>

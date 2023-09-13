@@ -1,0 +1,39 @@
+<!DOCTYPE html>{% load static %}{% load plausible %}
+<html lang="fi" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Addit</title>
+    <meta property="og:title" content="Addit"/>
+    <meta property="og:description" content="Addit"/>
+    <meta property="og:image" content="{{ host_address }}/static/images/logo192_transparent.png"/>
+    <meta property="og:url" content="{{ host_address }}"/>
+
+    <link rel="manifest" href="{% static 'site.webmanifest' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <link rel="stylesheet" href="{% static 'css/bootswatch.pulse.5.3.1.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.bundle.min.js"
+            integrity="sha512-ToL6UYWePxjhDQKNioSi4AyJ5KkRxY+F1+Fi7Jgh0Hp5Kk2/s8FD7zusJDdonfe5B00Qw+B8taXxF6CFLnqNCw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+</head>
+<body>
+<div id="mainContainer" class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+
+<script type="text/javascript" src="{% static 'js/bs-color-mode-toggler.js' %}"></script>
+
+{% plausible %}
+
+</html>
