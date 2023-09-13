@@ -13,8 +13,15 @@ class ViewTest(TestCase):
         self.assertRedirects(response, "/login/?next=/")
 
     def test_login_redirect(self):
-        response = self.client.post(reverse("addit:login"), {"username": "normal", "password": "123"}, follow=True)
+        base_url = reverse("addit:login")
+        response = self.client.post(base_url, {"username": "normal", "password": "123"}, follow=True)
         self.assertRedirects(response, reverse("addit:landing-page"))
+        url = base_url + "?next=/"
+        response = self.client.post(url, {"username": "normal", "password": "123"}, follow=True)
+        self.assertRedirects(response, reverse("addit:landing-page"))
+        url = base_url + "?next=/quote/hearts/"
+        response = self.client.post(url, {"username": "normal", "password": "123"}, follow=True)
+        self.assertEqual(response.request.get("PATH_INFO"), reverse("addit:quote-detail", args=["hearts"]))
 
     def test_landing_page_as_users(self):
         self.client.login(username="normal", password="123")
