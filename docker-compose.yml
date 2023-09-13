@@ -7,7 +7,7 @@ services:
     build: backend
     container_name: addit_backend
     # command: bash -c "python manage.py runserver 0.0.0.0:${DJANGO_PORT}"
-    # command: bash -c "gunicorn config.wsgi -w $${UWSGI_WORKERS:?Please set UWSGI_WORKERS env value} -b 0.0.0.0:${DJANGO_PO$
+    # command: bash -c "gunicorn config.wsgi -w ${UWSGI_WORKERS} -b 0.0.0.0:${DJANGO_PORT}"
     volumes:
       - ./backend:/app/backend
     ports:
