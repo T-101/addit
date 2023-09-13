@@ -31,9 +31,6 @@ class LandingPage(LoginRequiredMixin, RandomQuoteMixin, ListView):
 class LoginView(DjangoLoginView):
     template_name = "addit/login.html"
 
-    def get_redirect_url(self):
-        return reverse("addit:landing-page")
-
 
 class LogoutView(DjangoLogoutView):
     next_page = reverse_lazy("addit:login")
