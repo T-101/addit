@@ -88,20 +88,8 @@
                             </a>
                         {% endfor %}
                     </div>
-                    <!-- <table class="table">
-                        {% for object in object_list %}
-                            <tr>
-                                <td>
-                                    <a class="list-group-item list-group-item-action"
-                                       href="{% url 'addit:quote-detail' object.slug %}">{{ object.topic }}
-                                    </a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </table> -->
                 </div>
             </div>
-
         </div>
     {% endif %}
 
@@ -121,7 +109,9 @@
                     </div>
                 </div>
                 <p>- {{ object.handle }}
-                    <small class="ms-2">({{ object.time_added }})</small>
+                    {% if object.time_added.year > 1980 %}
+                        <small class="ms-2">({{ object.time_added }})</small>
+                    {% endif %}
                 </p>
             </div>
         </div>
