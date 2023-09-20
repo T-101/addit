@@ -1,0 +1,46 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$jSzIYoOH0lMe$y8/MyuKlpLvIeb4fGPBp5TOELp3iXHH1/J+QZ+AOyTA=",
+      "last_login": "2023-09-12T15:57:54.849Z",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2019-11-27T13:10:53.309Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$jSzIYoOH0lMe$y8/MyuKlpLvIeb4fGPBp5TOELp3iXHH1/J+QZ+AOyTA=",
+      "last_login": "2023-09-12T16:51:59.004Z",
+      "is_superuser": false,
+      "username": "normal",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-02-19T13:05:35.198Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "authtoken.token",
+    "pk": "599e10d61ffc513af59fb00e248fd54b81dce8d7",
+    "fields": {
+      "user": 2,
+      "created": "2020-02-19T13:05:50.720Z"
+    }
+  }
+]
