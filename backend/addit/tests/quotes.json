@@ -1,0 +1,15 @@
+[
+  {
+    "model": "addit.quote",
+    "pk": 1,
+    "fields": {
+      "time_added": "1970-01-01T00:00:00Z",
+      "handle": "user1",
+      "topic": "hearts",
+      "content": "<@user1> line <@user2> <3",
+      "uuid": "a53a6059-c7eb-49b2-bf97-844fda6df635",
+      "slug": "hearts",
+      "is_visible": true
+    }
+  }
+]
