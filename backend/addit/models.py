@@ -15,7 +15,7 @@ class Quote(models.Model):
     time_added = models.DateTimeField()
     handle = models.CharField(max_length=16)
     topic = models.CharField(max_length=100, unique=True)
-    slug = AutoSlugField(populate_from=["topic"])
+    slug = AutoSlugField(populate_from=["topic"], max_length=255, overwrite=True)
     content = models.TextField(max_length=512)
     uuid = models.UUIDField(blank=True, null=True)
     is_visible = models.BooleanField(default=True)
