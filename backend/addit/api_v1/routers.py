@@ -18,7 +18,7 @@ app_name = "api"
 router = OptionalSlashRouter()
 
 router.register('quotes', QuoteViewSet)
-router.register('rexpl', RandomQuoteViewSet)
+router.register('rexpl', RandomQuoteViewSet, basename="random-quote")
 
 urlpatterns = [
     path('quotes/<uuid:uuid>/', QuoteViewSet.as_view({'get': 'retrieve_by_uuid'})),
