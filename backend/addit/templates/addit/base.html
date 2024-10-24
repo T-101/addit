@@ -9,6 +9,8 @@
     <meta property="og:image" content="{{ host_address }}/static/images/logo192_transparent.png"/>
     <meta property="og:url" content="{{ host_address }}"/>
 
+    <script type="text/javascript" src="{% static 'js/bs-color-mode-toggler.js' %}"></script>
+
     <link rel="manifest" href="{% static 'site.webmanifest' %}">
     <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/>
 
@@ -30,10 +32,8 @@
     {% block content %}
     {% endblock %}
 </div>
-</body>
-
-<script type="text/javascript" src="{% static 'js/bs-color-mode-toggler.js' %}"></script>
 
 {% plausible %}
 
+</body>
 </html>
