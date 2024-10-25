@@ -64,38 +64,6 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-
-        const mainContainer = document.querySelector("#mainContainer")
-
-        handleResize = (width) => {
-            if (width <= 576)
-                mainContainer.classList.remove("container")
-            else
-                mainContainer.classList.add("container")
-
-        }
-
-        window.addEventListener('resize', (e) => handleResize(e.target.innerWidth))
-        handleResize(window.innerWidth)
-
-        const search = document.querySelector("#search")
-
-        search.addEventListener("keyup", (e) => {
-            console.log(e)
-            if (e.key === "Enter") {
-                window.location.href = `/?search=${search.value}&filter=topic`
-            }
-        })
-
-        document.querySelectorAll(".doSearch").forEach((e) => {
-            e.addEventListener("click", () => {
-                if (search.value) window.location.href = `/?search=${search.value}&filter=${e.dataset.filter}`
-            })
-        })
-
-    </script>
-
     {% if object_list %}
         <div class="card mb-4">
             <h3 class="card-header">{{ object_list.count }} Search results</h3>
@@ -120,43 +88,78 @@
     {% endif %}
 
     {% if object %}
-        <script>
-            $(function () {
-                $("#contentCard").resizable()
-            })
-        </script>
-        <div id="contentCard" class="card mb-4 ui-widget-content">
-            <div class="card-header fs-3">
-                <div class="row">
-                    <div class="col">
-                        {{ object.topic }}
-                    </div>
-                    <div class="col text-end">
-                        <button id="imageButton" class="btn btn-outline-primary copy-buttons"
-                                title="Image to new tab">
-                            <i class="fa-regular fa-image mx-2"></i>
-                        </button>
-                        <button id="copyButton" class="btn btn-outline-primary copy-buttons"
-                                title="Copy to clipboard">
-                            <i class="fa-regular fa-clipboard mx-2"></i>
-                        </button>
-                    </div>
-                </div>
 
-            </div>
-            <div class="card-body">
-                <div class="card-text">
-                    <div class="quote-monospace">
-                        {{ object.content|parse_quote|safe|linebreaks }}
-                    </div>
+        <div id="cardContainer">
+            <div id="contentCard" class="card mb-4 ui-widget-content">
+                <div class="card-header fs-3">
+                    {{ object.topic }}
                 </div>
-                <p>- {{ object.handle }}
-                    {% if object.time_added.year > 1980 %}
-                        <small class="ms-2">({{ object.time_added }})</small>
-                    {% endif %}
-                </p>
+                <div class="card-body pb-0">
+                    <div class="card-text">
+                        <div class="quote-monospace">
+                            {{ object.content|parse_quote|safe|linebreaks }}
+                        </div>
+                    </div>
+                    <p>- {{ object.handle }}
+                        {% if object.time_added.year > 1980 %}
+                            <small class="ms-2">({{ object.time_added }})</small>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" style="z-index: 1;">
+                    <button id="copyButton" class="btn btn-outline-primary copy-buttons mb-2"
+                            title="Copy to clipboard">
+                        <i class="fa-regular fa-clipboard me-2"></i> Copy image to clipboard
+                    </button>
+                    <button id="imageButton" class="btn btn-outline-primary copy-buttons mb-2"
+                            title="Image to new tab">
+                        <i class="fa-regular fa-image me-2"></i> Copy image to new tab
+                    </button>
+                </div>
             </div>
         </div>
+
+
+
+        <script type="text/javascript">
+
+            $("#contentCard").resizable()
+
+            const mainContainer = document.querySelector("#mainContainer"),
+                cardContainer = document.querySelector("#cardContainer")
+
+            handleResize = (width) => {
+                if (width <= 576) {
+                    mainContainer.classList.remove("container")
+                    cardContainer.classList.add("container")
+                } else {
+                    mainContainer.classList.add("container")
+                    cardContainer.classList.remove("container")
+                }
+
+            }
+
+            window.addEventListener('resize', (e) => handleResize(e.target.innerWidth))
+            handleResize(window.innerWidth)
+
+            const search = document.querySelector("#search")
+
+            search.addEventListener("keyup", (e) => {
+                console.log(e)
+                if (e.key === "Enter") {
+                    window.location.href = `/?search=${search.value}&filter=topic`
+                }
+            })
+
+            document.querySelectorAll(".doSearch").forEach((e) => {
+                e.addEventListener("click", () => {
+                    if (search.value) window.location.href = `/?search=${search.value}&filter=${e.dataset.filter}`
+                })
+            })
+
+        </script>
 
         <script>
             const card = document.getElementById('contentCard'),
@@ -176,7 +179,6 @@
 
             copyButtons.each(function () {
                 $(this).click(function () {
-                    copyButtons.css('display', 'none')
                     html2canvas(card).then(canvas => {
                         const dataBlob = dataURItoBlob(canvas.toDataURL("image/png"))
                         if ($(this).attr('id') === 'copyButton') {
@@ -188,7 +190,6 @@
                             window.open(URL.createObjectURL(dataBlob), '_blank')
                         }
                     })
-                    copyButtons.css('display', 'unset')
                 })
             })
         </script>
