@@ -132,9 +132,13 @@
                         {{ object.topic }}
                     </div>
                     <div class="col text-end">
-                        <button id="copyButton" class="btn btn-outline-primary"
+                        <button id="imageButton" class="btn btn-outline-primary copy-buttons"
+                                title="Image to new tab">
+                            <i class="fa-regular fa-image mx-3"></i>
+                        </button>
+                        <button id="copyButton" class="btn btn-outline-primary copy-buttons"
                                 title="Copy to clipboard">
-                            <i class="fa-regular fa-clipboard"></i>
+                            <i class="fa-regular fa-clipboard mx-3"></i>
                         </button>
                     </div>
                 </div>
@@ -155,17 +159,27 @@
         </div>
 
         <script>
-            const copyButton = document.getElementById('copyButton'),
-                card = document.getElementById('contentCard')
-            copyButton.addEventListener('click', function () {
-                copyButton.style.display = 'none'
-                html2canvas(card).then(canvas => {
-                    canvas.toBlob(blob => {
-                        const url = URL.createObjectURL(blob);
-                        window.open(url, '_blank');
+            const card = document.getElementById('contentCard'),
+                copyButtons = $(".copy-buttons")
+
+            copyButtons.each(function () {
+                $(this).click(function () {
+                    copyButtons.css('display', 'none')
+                    html2canvas(card).then(canvas => {
+                        canvas.toBlob(blob => {
+                            if ($(this).attr('id') === 'copyButton') {
+                                const item = new ClipboardItem({'image/png': blob})
+                                navigator.clipboard.write([item]).then(() => {
+                                    alert('Card copied to clipboard as image!')
+                                })
+                            } else {
+                                const url = URL.createObjectURL(blob)
+                                window.open(url, '_blank')
+                            }
+                        })
                     })
+                    copyButtons.css('display', 'unset')
                 })
-                copyButton.style.display = 'unset'
             })
         </script>
 
