@@ -28,3 +28,12 @@ body {
 .list-group {
     --bs-list-group-action-hover-bg: var(--bs-purple);
 }
+
+/* Center the navbar brand on small screens */
+@media (max-width: 576px) {
+    .navbar-brand {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}

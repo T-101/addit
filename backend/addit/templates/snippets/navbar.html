@@ -1,38 +1,46 @@
-<nav class="navbar bg-primary mb-4 py-1" data-bs-theme="dark">{% load static %}
+<nav class="navbar navbar-dark navbar-expand-sm bg-primary mb-4 py-1">{% load static %}
     <div class="container-fluid">
-
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <a class="navbar-brand quote-monospace" href="{% url 'addit:landing-page' %}">
-            <img src="{% static 'images/logo128_transparent.png' %}" class="me-1"
-                 alt="addit-logo" style="height: 1.5em;"/>
+            <img src="{% static 'images/logo128_transparent.png' %}"
+                 class="d-inline-block align-text-top me-1" alt="addit-logo" style="height: 1.5em;"/>
             &lt;Addit&gt;
         </a>
-
-        <ul class="nav">
-            <li class="nav-item">
-                <a href="{% url 'addit:logout' %}" class="nav-link" role="button">
-                    <i class="fa-solid fa-circle-user me-2"></i>
-                    Logout
-                </a>
-            </li>
-            <li class="vr text-white"></li>
-            <li id="revertTheme" class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                   aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-sun"></i>
-                </a>
-                <div class="dropdown-menu dropdown-menu-end">
-                    <button class="dropdown-item active" data-bs-theme-value="light">
-                        <i class="fas fa-sun"></i> Light
-                    </button>
-                    <button class="dropdown-item" data-bs-theme-value="dark">
-                        <i class="fas fa-moon"></i> Dark
-                    </button>
-                    <button class="dropdown-item" data-bs-theme-value="auto">
-                        <i class="fas fa-magic"></i> Automatic
-                    </button>
-                </div>
-            </li>
-        </ul>
-
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            </ul>
+            <ul class="navbar-nav mx-2">
+                <li class="nav-item">
+                    <form method="post" action="{% url 'addit:logout' %}">
+                        {% csrf_token %}
+                        <button class="nav-link">
+                            <i class="fa-solid fa-circle-user me-2"></i>
+                            Logout
+                        </button>
+                    </form>
+                </li>
+            </ul>
+            <div class="vr text-white d-none d-sm-block"></div>
+            <ul class="navbar-nav mx-2">
+                <li class="nav-item dropdown bg-primary">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="true" aria-expanded="false"><i class="fas fa-sun"></i></a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <button class="dropdown-item" data-bs-theme-value="light">
+                            <i class="fa-solid fa-sun me-2"></i>Light
+                        </button>
+                        <button class="dropdown-item" data-bs-theme-value="dark">
+                            <i class="fa-solid fa-moon me-2"></i>Dark
+                        </button>
+                        <button class="dropdown-item" data-bs-theme-value="auto">
+                            <i class="fa-solid fa-wand-magic-sparkles me-2"></i>Automatic
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
