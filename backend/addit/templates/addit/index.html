@@ -64,6 +64,23 @@
         </div>
     </div>
 
+    <script>
+        const search = document.querySelector("#search")
+
+        search.addEventListener("keyup", (e) => {
+            console.log(e)
+            if (e.key === "Enter") {
+                window.location.href = `/?search=${search.value}&filter=topic`
+            }
+        })
+
+        document.querySelectorAll(".doSearch").forEach((e) => {
+            e.addEventListener("click", () => {
+                if (search.value) window.location.href = `/?search=${search.value}&filter=${e.dataset.filter}`
+            })
+        })
+    </script>
+
     {% if object_list %}
         <div class="card mb-4">
             <h3 class="card-header">{{ object_list.count }} Search results</h3>
@@ -120,11 +137,8 @@
                 </div>
             </div>
         </div>
-
-
-
-        <script type="text/javascript">
-
+        
+        <script>
             $("#contentCard").resizable()
 
             const mainContainer = document.querySelector("#mainContainer"),
@@ -138,27 +152,10 @@
                     mainContainer.classList.add("container")
                     cardContainer.classList.remove("container")
                 }
-
             }
 
             window.addEventListener('resize', (e) => handleResize(e.target.innerWidth))
             handleResize(window.innerWidth)
-
-            const search = document.querySelector("#search")
-
-            search.addEventListener("keyup", (e) => {
-                console.log(e)
-                if (e.key === "Enter") {
-                    window.location.href = `/?search=${search.value}&filter=topic`
-                }
-            })
-
-            document.querySelectorAll(".doSearch").forEach((e) => {
-                e.addEventListener("click", () => {
-                    if (search.value) window.location.href = `/?search=${search.value}&filter=${e.dataset.filter}`
-                })
-            })
-
         </script>
 
         <script>
