@@ -160,10 +160,10 @@
 
         <script>
             const card = document.getElementById('contentCard'),
-                copyButtons = $(".copy-buttons"),
-                copyButton = document.getElementById("copyButton")
+                copyButtons = $(".copy-buttons")
 
             function dataURItoBlob(dataURI) {
+                // This seems to work more reliably than the builtin canvas.toBlob()
                 const byteString = atob(dataURI.split(',')[1])
                 const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
                 const arrayBuffer = new ArrayBuffer(byteString.length)
@@ -178,18 +178,15 @@
                 $(this).click(function () {
                     copyButtons.css('display', 'none')
                     html2canvas(card).then(canvas => {
+                        const dataBlob = dataURItoBlob(canvas.toDataURL("image/png"))
                         if ($(this).attr('id') === 'copyButton') {
-                            const dataBlob = dataURItoBlob(canvas.toDataURL("image/png"))
                             const item = new ClipboardItem({'image/png': dataBlob})
-                            navigator.clipboard.write([item]).then(() => {
-                                alert('Card copied to clipboard as image!')
-                            }).catch(err => alert(`Failed to copy: ${err}`))
+                            navigator.clipboard.write([item])
+                                .then(() => alert('Card copied to clipboard as image!'))
+                                .catch(err => alert(`Failed to copy: ${err}`))
                         } else {
-                            canvas.toBlob(blob => {
-                                window.open(URL.createObjectURL(blob), '_blank')
-                            })
+                            window.open(URL.createObjectURL(dataBlob), '_blank')
                         }
-
                     })
                     copyButtons.css('display', 'unset')
                 })
