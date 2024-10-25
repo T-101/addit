@@ -9,8 +9,6 @@
 
     const storedTheme = localStorage.getItem('theme')
 
-    const revertedDropdown = document.querySelector("#revertTheme")
-
     const getPreferredTheme = () => {
         if (storedTheme) {
             return storedTheme
@@ -22,10 +20,8 @@
     const setTheme = function (theme) {
         if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.documentElement.setAttribute('data-bs-theme', 'dark')
-            revertedDropdown.dataset.bsTheme = "dark"
         } else {
             document.documentElement.setAttribute('data-bs-theme', theme)
-            revertedDropdown.dataset.bsTheme = theme
         }
     }
 
