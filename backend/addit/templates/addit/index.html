@@ -1,5 +1,20 @@
 {% extends 'addit/base.html' %}{% load www_extras %}
 
+{% block extrahead %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+            integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.14.0/jquery-ui.min.js"
+            integrity="sha512-MlEyuwT6VkRXExjj8CdBKNgd+e2H+aYZOCUaCrt9KRk6MlZDOs91V1yK22rwm8aCIsb5Ec1euL8f0g58RKT/Pg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.14.0/themes/base/jquery-ui.min.css"
+          integrity="sha512-F8mgNaoH6SSws+tuDTveIu+hx6JkVcuLqTQ/S/KJaHJjGc8eUxIrBawMnasq2FDlfo7FYsD8buQXVwD+0upbcA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+{% endblock %}
+
 {% block content %}
 
     {% include 'snippets/navbar.html' %}
@@ -102,8 +117,26 @@
     {% endif %}
 
     {% if object %}
-        <div class="card mb-4">
-            <h3 class="card-header">{{ object.topic }}</h3>
+        <script>
+            $(function () {
+                $("#contentCard").resizable()
+            })
+        </script>
+        <div id="contentCard" class="card mb-4 ui-widget-content">
+            <div class="card-header fs-3">
+                <div class="row">
+                    <div class="col">
+                        {{ object.topic }}
+                    </div>
+                    <div class="col text-end">
+                        <button id="copyButton" class="btn btn-outline-primary"
+                                title="Copy to clipboard">
+                            <i class="fa-regular fa-clipboard"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
             <div class="card-body">
                 <div class="card-text">
                     <div class="quote-monospace">
@@ -117,6 +150,22 @@
                 </p>
             </div>
         </div>
+
+        <script>
+            const copyButton = document.getElementById('copyButton'),
+                card = document.getElementById('contentCard')
+            copyButton.addEventListener('click', function () {
+                copyButton.style.display = 'none'
+                html2canvas(card).then(canvas => {
+                    canvas.toBlob(blob => {
+                        const url = URL.createObjectURL(blob);
+                        window.open(url, '_blank');
+                    })
+                })
+                copyButton.style.display = 'unset'
+            })
+        </script>
+
     {% endif %}
 
 {% endblock %}
