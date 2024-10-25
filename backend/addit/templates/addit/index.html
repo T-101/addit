@@ -11,7 +11,7 @@
                     <div role="toolbar" class="btn-toolbar">
                         <form method="post">
                             {% csrf_token %}
-                            <button class="btn btn-outline-primary btn-block btn-lg">
+                            <button class="btn btn-outline-primary btn-block btn-lg" style="height: 58px">
                                 <i class="fa-solid fa-shuffle me-2"></i>
                                 Random
                             </button>
@@ -20,9 +20,11 @@
                 </div>
                 <div class="col mt-2 mt-sm-0">
                     <div class="input-group">
-                        <input id="search" type="text" class="form-control form-control-lg"
-                               value="{{ request.GET.search }}" placeholder="Search..."
-                               aria-label="Text input with segmented dropdown button">
+                        <div class="form-floating">
+                            <input id="search" type="text" class="form-control form-control-lg"
+                                   value="{{ request.GET.search }}" placeholder="Search...">
+                            <label for="search">Search...</label>
+                        </div>
                         <button data-filter="topic" type="button" class="btn btn-outline-primary doSearch">
                             <i class="fa-solid fa-magnifying-glass me-2"></i>
                             Search by topic
