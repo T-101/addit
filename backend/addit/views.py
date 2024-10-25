@@ -33,7 +33,7 @@ class LoginView(DjangoLoginView):
 
 
 class LogoutView(DjangoLogoutView):
-    next_page = reverse_lazy("addit:login")
+    next_page = reverse_lazy("addit:landing-page")
 
 
 class QuoteView(LoginRequiredMixin, RandomQuoteMixin, DetailView):
