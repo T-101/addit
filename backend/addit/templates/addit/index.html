@@ -134,11 +134,11 @@
                     <div class="col text-end">
                         <button id="imageButton" class="btn btn-outline-primary copy-buttons"
                                 title="Image to new tab">
-                            <i class="fa-regular fa-image mx-3"></i>
+                            <i class="fa-regular fa-image mx-2"></i>
                         </button>
                         <button id="copyButton" class="btn btn-outline-primary copy-buttons"
                                 title="Copy to clipboard">
-                            <i class="fa-regular fa-clipboard mx-3"></i>
+                            <i class="fa-regular fa-clipboard mx-2"></i>
                         </button>
                     </div>
                 </div>
@@ -160,23 +160,36 @@
 
         <script>
             const card = document.getElementById('contentCard'),
-                copyButtons = $(".copy-buttons")
+                copyButtons = $(".copy-buttons"),
+                copyButton = document.getElementById("copyButton")
+
+            function dataURItoBlob(dataURI) {
+                const byteString = atob(dataURI.split(',')[1])
+                const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+                const arrayBuffer = new ArrayBuffer(byteString.length)
+                const uint8Array = new Uint8Array(arrayBuffer)
+                for (let i = 0; i < byteString.length; i++) {
+                    uint8Array[i] = byteString.charCodeAt(i)
+                }
+                return new Blob([arrayBuffer], {type: mimeString})
+            }
 
             copyButtons.each(function () {
                 $(this).click(function () {
                     copyButtons.css('display', 'none')
                     html2canvas(card).then(canvas => {
-                        canvas.toBlob(blob => {
-                            if ($(this).attr('id') === 'copyButton') {
-                                const item = new ClipboardItem({'image/png': blob})
-                                navigator.clipboard.write([item]).then(() => {
-                                    alert('Card copied to clipboard as image!')
-                                })
-                            } else {
-                                const url = URL.createObjectURL(blob)
-                                window.open(url, '_blank')
-                            }
-                        })
+                        if ($(this).attr('id') === 'copyButton') {
+                            const dataBlob = dataURItoBlob(canvas.toDataURL("image/png"))
+                            const item = new ClipboardItem({'image/png': dataBlob})
+                            navigator.clipboard.write([item]).then(() => {
+                                alert('Card copied to clipboard as image!')
+                            }).catch(err => alert(`Failed to copy: ${err}`))
+                        } else {
+                            canvas.toBlob(blob => {
+                                window.open(URL.createObjectURL(blob), '_blank')
+                            })
+                        }
+
                     })
                     copyButtons.css('display', 'unset')
                 })
