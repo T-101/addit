@@ -137,12 +137,25 @@
                 </div>
             </div>
         </div>
-        
+
+        <div class="toast-container  bottom-0 start-0 p-3">
+            <div id="alertToast" class="toast" role="alert">
+                <div class="toast-header">
+                    <strong class="me-auto">Addit</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Card copied to clipboard!
+                </div>
+            </div>
+        </div>
+
         <script>
             $("#contentCard").resizable()
 
             const mainContainer = document.querySelector("#mainContainer"),
-                cardContainer = document.querySelector("#cardContainer")
+                cardContainer = document.querySelector("#cardContainer"),
+                alertToast = new bootstrap.Toast(document.getElementById('alertToast'), {delay: 3000})
 
             handleResize = (width) => {
                 if (width <= 576) {
@@ -181,7 +194,7 @@
                         if ($(this).attr('id') === 'copyButton') {
                             const item = new ClipboardItem({'image/png': dataBlob})
                             navigator.clipboard.write([item])
-                                .then(() => alert('Card copied to clipboard as image!'))
+                                .then(() => alertToast.show())
                                 .catch(err => alert(`Failed to copy: ${err}`))
                         } else {
                             window.open(URL.createObjectURL(dataBlob), '_blank')
